@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:multiplatform_solutions/data/get_data.dart';
@@ -7,7 +6,7 @@ import 'package:multiplatform_solutions/data/get_data.dart';
 import 'wide_ui.dart';
 
 class AdaptiveUI extends StatefulWidget {
-  AdaptiveUI({Key? key}) : super(key: key);
+  const AdaptiveUI({Key? key}) : super(key: key);
 
   @override
   State<AdaptiveUI> createState() => _AdaptiveUIState();
@@ -18,7 +17,7 @@ class _AdaptiveUIState extends State<AdaptiveUI> {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) => constraints.maxWidth > 720
-          ? AdaptiveUIWide()
+          ? const AdaptiveUIWide()
           : Scaffold(
               appBar: AppBar(),
               body: Column(

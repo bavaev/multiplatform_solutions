@@ -9,7 +9,7 @@ import 'platforms/app_platform.dart';
 import 'platforms/hyperlink.dart';
 
 class View extends StatefulWidget {
-  View({Key? key}) : super(key: key);
+  const View({Key? key}) : super(key: key);
 
   @override
   State<View> createState() => _ViewState();
