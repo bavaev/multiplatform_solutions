@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/view': (context) => const View(),
-        '/adaptiveUI': ((context) => const AdaptiveUI()),
+        '/adaptiveUI': ((context) => const AdaptiveUINarrow()),
       },
       home: Builder(
         builder: (context) => Scaffold(

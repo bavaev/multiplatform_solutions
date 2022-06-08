@@ -1,18 +1,28 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:multiplatform_solutions/adaptive_ui/widgets/narrow_person_card.dart';
+
 import 'package:multiplatform_solutions/data/get_data.dart';
 
 import 'wide_ui.dart';
+import 'widgets/narrow_person_card.dart';
 
-class AdaptiveUI extends StatefulWidget {
-  const AdaptiveUI({Key? key}) : super(key: key);
+class AdaptiveUINarrow extends StatefulWidget {
+  const AdaptiveUINarrow({Key? key}) : super(key: key);
 
   @override
-  State<AdaptiveUI> createState() => _AdaptiveUIState();
+  State<AdaptiveUINarrow> createState() => _AdaptiveUINarrowState();
 }
 
-class _AdaptiveUIState extends State<AdaptiveUI> {
+class _AdaptiveUINarrowState extends State<AdaptiveUINarrow> {
+  late Future data;
+
+  @override
+  void initState() {
+    super.initState();
+    data = fetchFile();
+  }
+
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
@@ -36,7 +46,7 @@ class _AdaptiveUIState extends State<AdaptiveUI> {
                     ),
                   ),
                   FutureBuilder(
-                    future: fetchFile(),
+                    future: data,
                     builder: (context, AsyncSnapshot snapshot) {
                       if (snapshot.hasData) {
                         List<dynamic> users = jsonDecode(snapshot.data);
@@ -44,138 +54,7 @@ class _AdaptiveUIState extends State<AdaptiveUI> {
                           child: ListView.builder(
                             itemCount: users.length,
                             itemBuilder: (context, index) {
-                              return GestureDetector(
-                                onTap: () async => await showCupertinoModalPopup(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return WillPopScope(
-                                        child: CupertinoActionSheet(
-                                          actions: [
-                                            CupertinoActionSheetAction(
-                                              isDefaultAction: true,
-                                              onPressed: () => Navigator.of(context).pop(),
-                                              child: Row(
-                                                children: const [
-                                                  Icon(
-                                                    Icons.person,
-                                                    size: 50,
-                                                  ),
-                                                  Text(
-                                                    'VIEW PROFILE',
-                                                    style: TextStyle(
-                                                      fontSize: 30,
-                                                      color: Colors.black,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            const Divider(
-                                              thickness: 3,
-                                              color: Colors.black,
-                                            ),
-                                            CupertinoActionSheetAction(
-                                              isDefaultAction: true,
-                                              onPressed: () => Navigator.of(context).pop(),
-                                              child: Row(
-                                                children: const [
-                                                  Icon(
-                                                    Icons.supervisor_account,
-                                                    size: 50,
-                                                  ),
-                                                  Text(
-                                                    'FRIENDS',
-                                                    style: TextStyle(
-                                                      fontSize: 30,
-                                                      color: Colors.black,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            const Divider(
-                                              thickness: 3,
-                                              color: Colors.black,
-                                            ),
-                                            CupertinoActionSheetAction(
-                                              isDefaultAction: true,
-                                              onPressed: () => Navigator.of(context).pop(),
-                                              child: Row(
-                                                children: const [
-                                                  Icon(
-                                                    Icons.sticky_note_2_outlined,
-                                                    size: 50,
-                                                  ),
-                                                  Text(
-                                                    'REPORT',
-                                                    style: TextStyle(
-                                                      fontSize: 30,
-                                                      color: Colors.black,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        onWillPop: () async {
-                                          return false;
-                                        });
-                                  },
-                                ),
-                                child: Container(
-                                  margin: const EdgeInsets.all(5),
-                                  padding: const EdgeInsets.all(10),
-                                  decoration: BoxDecoration(
-                                    color: Colors.cyan,
-                                    borderRadius: BorderRadius.circular(15),
-                                    boxShadow: const [
-                                      BoxShadow(
-                                        color: Colors.black45,
-                                        offset: Offset(5, 5),
-                                        blurRadius: 10,
-                                        spreadRadius: 1,
-                                      ),
-                                    ],
-                                  ),
-                                  child: Row(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      const Flexible(
-                                        flex: 2,
-                                        child: Padding(
-                                          padding: EdgeInsets.only(right: 25),
-                                          child: CircleAvatar(
-                                            radius: 40,
-                                            backgroundImage: AssetImage('assets/wpua.png'),
-                                          ),
-                                        ),
-                                      ),
-                                      Flexible(
-                                        flex: 5,
-                                        child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              users[index]['name'],
-                                              style: const TextStyle(
-                                                fontSize: 25,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                            Text(
-                                              users[index]['email'],
-                                              style: const TextStyle(
-                                                fontSize: 20,
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              );
+                              return NarrowPersonCard(user: users[index]);
                             },
                           ),
                         );

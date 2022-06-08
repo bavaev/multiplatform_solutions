@@ -3,10 +3,10 @@ import 'package:popover/popover.dart';
 
 import 'menu.dart';
 
-class PersonCard extends StatelessWidget {
+class WidePersonCard extends StatelessWidget {
   final Map<String, dynamic> user;
 
-  const PersonCard({Key? key, required this.user}) : super(key: key);
+  const WidePersonCard({Key? key, required this.user}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

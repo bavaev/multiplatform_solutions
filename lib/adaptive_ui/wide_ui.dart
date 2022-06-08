@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 
 import 'package:multiplatform_solutions/data/get_data.dart';
-import 'package:multiplatform_solutions/adaptive_ui/widgets/card.dart';
+import 'package:multiplatform_solutions/adaptive_ui/widgets/wide_person_card.dart';
 
 class AdaptiveUIWide extends StatefulWidget {
   const AdaptiveUIWide({Key? key}) : super(key: key);
@@ -12,6 +12,14 @@ class AdaptiveUIWide extends StatefulWidget {
 }
 
 class _AdaptiveUIWideState extends State<AdaptiveUIWide> {
+  late Future data;
+
+  @override
+  void initState() {
+    super.initState();
+    data = fetchFile();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,7 +45,7 @@ class _AdaptiveUIWideState extends State<AdaptiveUIWide> {
           Expanded(
             flex: 4,
             child: FutureBuilder(
-              future: fetchFile(),
+              future: data,
               builder: (context, AsyncSnapshot snapshot) {
                 if (snapshot.hasData) {
                   List<dynamic> users = jsonDecode(snapshot.data);
@@ -45,7 +53,7 @@ class _AdaptiveUIWideState extends State<AdaptiveUIWide> {
                     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
                     itemCount: users.length,
                     itemBuilder: (context, index) {
-                      return PersonCard(user: users[index]);
+                      return WidePersonCard(user: users[index]);
                     },
                   );
                 }
