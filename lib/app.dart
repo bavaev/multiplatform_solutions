@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: '/',
       routes: {
-        '/view': (context) => const View(),
+        '/view': (context) => const WebViewPage(),
         '/adaptiveUI': ((context) => const AdaptiveUINarrow()),
       },
       home: Builder(
@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
                 children: [
                   ElevatedButton(
                     onPressed: () => Navigator.pushNamed(context, '/view'),
-                    child: const Text('Multiplatform'),
+                    child: const Text('Multiplatform WebView'),
                   ),
                   const SizedBox(
                     height: 100,

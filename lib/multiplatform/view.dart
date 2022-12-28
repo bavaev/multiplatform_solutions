@@ -8,14 +8,14 @@ import 'package:webview_flutter/webview_flutter.dart';
 import 'platforms/app_platform.dart';
 import 'platforms/hyperlink.dart';
 
-class View extends StatefulWidget {
-  const View({Key? key}) : super(key: key);
+class WebViewPage extends StatefulWidget {
+  const WebViewPage({Key? key}) : super(key: key);
 
   @override
-  State<View> createState() => _ViewState();
+  State<WebViewPage> createState() => _WebViewPageState();
 }
 
-class _ViewState extends State<View> {
+class _WebViewPageState extends State<WebViewPage> {
   TextEditingController controller = TextEditingController();
   String url = '';
 
@@ -49,7 +49,7 @@ class _ViewState extends State<View> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          snapshot.data[0].split('<title>')[1].split('</title>')[0].trim(),
+                          snapshot.data.first.split('<title>')[1].split('</title>')[0].trim(),
                           style: const TextStyle(fontSize: 50, fontWeight: FontWeight.bold),
                         ),
                         const Text(
@@ -95,7 +95,7 @@ class _ViewState extends State<View> {
                             controller: controller,
                             decoration: const InputDecoration(
                               border: OutlineInputBorder(),
-                              labelText: 'Введите ссылку на сайт',
+                              labelText: 'Enter the link',
                             ),
                             onSubmitted: (String value) {
                               setState(() {
